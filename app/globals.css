@@ -1,0 +1,762 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — VRV Associates
+   Lifted from the "VRV Associates Website Redesign" design file.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Surfaces */
+  --color-paper: #f5f4f1;
+  --color-ink: #0f1417;
+  --color-hover: #edebe6;
+
+  /* Accent (design offers #B45309 / #0F766E / #3D5A80 / #6B6256) */
+  --color-accent: #b45309;
+
+  /* Text */
+  --color-body: #3c4348;
+  --color-muted: #6e747a;
+  --color-on-dark: #b9bfc4;
+  --color-on-dark-muted: #8a9299;
+
+  /* Rules & fields */
+  --color-rule: #d6d3cc;
+  --color-rule-soft: #e2dfd9;
+  --color-field: #c9c5bd;
+  --color-rule-dark: rgb(255 255 255 / 0.18);
+
+  /* Type */
+  --font-sans: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Layout */
+  --container-page: 1240px;
+
+  /* Motion — long-tailed decel reads as weight; nothing overshoots */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Layout primitives
+--------------------------------------------------------------------------- */
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 64px);
+}
+
+@utility section-y {
+  padding-block: clamp(64px, 9vw, 128px);
+}
+
+@utility section-y-sm {
+  padding-block: clamp(48px, 6vw, 88px);
+}
+
+@utility section-y-md {
+  padding-block: clamp(56px, 8vw, 112px);
+}
+
+@utility page-header-y {
+  padding-block: clamp(64px, 9vw, 128px) clamp(36px, 5vw, 64px);
+}
+
+/* ---------------------------------------------------------------------------
+   Type scale — longhand so CSS variables resolve reliably
+--------------------------------------------------------------------------- */
+
+@utility mono-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility mono-nav {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility mono-stage {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility mono-meta {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@utility mono-item {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@utility mono-note {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@utility mono-caption {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@utility mono-stat-note {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+}
+
+@utility mono-fine {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility mono-legal {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@utility mono-hero-meta {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+@utility t-hero {
+  font-weight: 500;
+  font-size: clamp(36px, 6.6vw, 104px);
+  line-height: 0.97;
+  letter-spacing: -0.035em;
+}
+
+@utility t-page {
+  font-weight: 500;
+  font-size: clamp(34px, 5.6vw, 86px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+@utility t-h2 {
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+@utility t-h2-cta {
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+@utility t-h2-band {
+  font-weight: 500;
+  font-size: clamp(23px, 2.9vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+@utility t-h3 {
+  font-weight: 500;
+  font-size: clamp(22px, 2.3vw, 32px);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+}
+
+@utility t-director {
+  font-weight: 500;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+@utility t-director-sm {
+  font-weight: 500;
+  font-size: clamp(21px, 2vw, 27px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@utility t-service-row {
+  font-weight: 500;
+  font-size: clamp(19px, 1.9vw, 27px);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+@utility t-card {
+  font-weight: 500;
+  font-size: clamp(19px, 1.7vw, 23px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@utility t-lead {
+  font-weight: 400;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.65;
+}
+
+@utility t-lead-lg {
+  font-weight: 400;
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.6;
+}
+
+@utility t-copy {
+  font-weight: 400;
+  font-size: clamp(15px, 1.1vw, 16px);
+  line-height: 1.7;
+}
+
+@utility t-contact-link {
+  font-weight: 500;
+  font-size: clamp(17px, 1.6vw, 23px);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+@utility t-stat {
+  font-weight: 500;
+  font-size: clamp(38px, 4.8vw, 74px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===========================================================================
+   MOTION
+   Everything below is gated on `.js` so a visitor without JavaScript — or a
+   crawler — never meets content that is waiting to be animated in.
+   =========================================================================== */
+
+/* --- Reveal --------------------------------------------------------------- */
+
+.js [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+
+.js [data-draw]:not([data-drawn]) {
+  opacity: 0;
+}
+
+/* Deliberately opacity, not clip-path: an ancestor clip is folded into a
+   descendant's IntersectionObserver rect, which would stop reveals inside the
+   band from ever firing. The clip is applied by the animation itself. */
+.js [data-curtain]:not([data-open]) {
+  opacity: 0;
+}
+
+/* --- Split lines ---------------------------------------------------------- */
+
+.js [data-split]:not([data-split-ready]) {
+  opacity: 0;
+}
+
+[data-split] .ln {
+  display: block;
+  overflow: hidden;
+  /* Ascenders and descenders would otherwise clip against the mask. */
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+
+[data-split] .ln-i {
+  display: block;
+  will-change: transform, opacity;
+}
+
+.js [data-split-ready] .ln-i {
+  opacity: 0;
+  transform: translate3d(0, 110%, 0);
+}
+
+[data-split] .sw {
+  display: inline-block;
+}
+
+/* --- Hero entrance -------------------------------------------------------- */
+
+.js [data-hero-item] {
+  opacity: 0;
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+html.intro-done [data-hero-item] {
+  animation: heroRise 1.15s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* --- Intro ---------------------------------------------------------------- */
+
+.intro {
+  display: none;
+}
+
+html.intro-active {
+  overflow: hidden;
+}
+
+html.intro-active .intro {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-ink);
+}
+
+/* The mark is mid-flight; the real logo takes over when it lands. */
+html.intro-active .brand-mark {
+  opacity: 0;
+}
+
+/* Hidden until the draw animation is attached — otherwise the grid paints
+   fully drawn for a frame between hydration and the effect running. */
+.intro-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.intro-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: clamp(20px, 4vw, 64px);
+}
+
+/* Proportions are the header logo's, scaled — that is what makes the
+   hand-off land: 18px mark, 9px gap, 10px suffix. */
+.intro-lockup {
+  --mark: clamp(30px, 7.6vw, 96px);
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--mark) * 0.5);
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.intro-mark {
+  display: flex;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--mark);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--color-paper);
+}
+
+.intro-suffix {
+  display: flex;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: calc(var(--mark) * 0.5556);
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-on-dark-muted);
+}
+
+.intro-mark > span,
+.intro-suffix > span {
+  display: inline-block;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.intro-aux {
+  position: absolute;
+  inset-inline: 0;
+  bottom: clamp(26px, 5vh, 56px);
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 64px);
+}
+
+.intro-rule {
+  display: block;
+  height: 1px;
+  background: var(--color-rule-dark);
+  overflow: hidden;
+}
+
+.intro-rule > span {
+  display: block;
+  height: 100%;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.intro-meta {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-dark-muted);
+}
+
+.intro-counter {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-paper);
+}
+
+/* --- Header --------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition:
+    transform 0.55s var(--ease-in-out-quint),
+    border-color 0.4s var(--ease-out-quart);
+}
+
+.site-header[data-scrolled] {
+  border-bottom-color: var(--color-rule);
+}
+
+.site-header[data-retracted] {
+  transform: translateY(-100%);
+}
+
+.nav-indicator {
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  height: 2px;
+  width: 0;
+  opacity: 0;
+  background: var(--color-accent);
+  pointer-events: none;
+  transition:
+    transform 0.55s var(--ease-out-expo),
+    width 0.55s var(--ease-out-expo),
+    opacity 0.3s var(--ease-out-quart);
+}
+
+/* Solid button whose fill rises on hover. */
+.cta-link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.cta-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-accent);
+  transform: translateY(101%);
+  transition: transform 0.55s var(--ease-out-expo);
+}
+
+.cta-link:hover::before,
+.cta-link:focus-visible::before {
+  transform: translateY(0);
+}
+
+.cta-link {
+  transition: color 0.45s var(--ease-out-quart);
+}
+
+.cta-link:hover,
+.cta-link:focus-visible {
+  color: #ffffff;
+}
+
+.arrow-link .arrow-glyph {
+  display: inline-block;
+  transition: transform 0.55s var(--ease-out-expo);
+}
+
+.arrow-link:hover .arrow-glyph,
+.arrow-link:focus-visible .arrow-glyph {
+  transform: translateX(7px);
+}
+
+@keyframes mobileIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#mobile-nav .mobile-link {
+  animation: mobileIn 0.55s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* --- Scroll progress ------------------------------------------------------ */
+
+.scroll-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.scroll-progress > div {
+  height: 100%;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* --- Service index rows --------------------------------------------------- */
+
+.service-row {
+  position: relative;
+  isolation: isolate;
+}
+
+.service-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-hover);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.65s var(--ease-out-expo);
+}
+
+.service-row:hover::before,
+.service-row:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.service-row .row-number,
+.service-row .row-title {
+  transition: transform 0.65s var(--ease-out-expo);
+}
+
+.service-row:hover .row-number,
+.service-row:focus-visible .row-number {
+  transform: translateX(6px);
+}
+
+.service-row:hover .row-title,
+.service-row:focus-visible .row-title {
+  transform: translateX(10px);
+}
+
+/* --- Pinned lifecycle ----------------------------------------------------- */
+
+.scrub-section {
+  position: relative;
+  padding-block: clamp(56px, 8vw, 110px);
+}
+
+.scrub-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+[data-stage-card] {
+  transition: opacity 0.7s var(--ease-out-quart);
+}
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .scrub-section {
+    /* Travel for the scrub. Pinning is `sticky`, so scrolling stays native. */
+    height: 300vh;
+    padding-block: 0;
+  }
+
+  .scrub-inner {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+
+  [data-stage-card] {
+    opacity: 0.28;
+  }
+
+  [data-stage-card][data-active] {
+    opacity: 1;
+  }
+}
+
+/* --- Page transitions ----------------------------------------------------- */
+
+@keyframes vtOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes vtIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: vtOut 0.3s var(--ease-out-quart) both;
+}
+
+::view-transition-new(root) {
+  animation: vtIn 0.6s var(--ease-out-expo) both;
+}
+
+/* --- Reduced motion ------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js [data-reveal]:not([data-revealed]),
+  .js [data-draw]:not([data-drawn]),
+  .js [data-split]:not([data-split-ready]),
+  .js [data-hero-item] {
+    opacity: 1;
+  }
+
+  .js [data-curtain]:not([data-open]) {
+    opacity: 1;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
