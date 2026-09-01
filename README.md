@@ -94,7 +94,7 @@ business burning cycles nobody is watching.
 **Set pieces**
 - Sector icons draw themselves via `stroke-dashoffset`
 - Headings reveal line by line from behind masks (`SplitLines`)
-- The project lifecycle is pinned and scroll-scrubbed (`LifecycleScrub`)
+- The project lifecycle drafts itself once on entry (`Lifecycle`)
 - Dark bands wipe open vertically (`Curtain`)
 - Stat counters, sliding nav indicator, retracting header, scroll progress
 

@@ -82,32 +82,7 @@ export function clamp(value: number, min = 0, max = 1): number {
   return Math.min(max, Math.max(min, value));
 }
 
-/** Maps `value` from [inMin, inMax] onto [outMin, outMax], clamped. */
-export function mapRange(
-  value: number,
-  inMin: number,
-  inMax: number,
-  outMin: number,
-  outMax: number,
-): number {
-  if (inMax === inMin) return outMin;
-  const t = clamp((value - inMin) / (inMax - inMin));
-  return outMin + t * (outMax - outMin);
-}
-
 export const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
-export const easeInOutQuint = (t: number) =>
-  t < 0.5 ? 16 * t ** 5 : 1 - Math.pow(-2 * t + 2, 5) / 2;
-
-/**
- * Progress of a pinned section, 0 at the moment it locks to the viewport top
- * and 1 when its travel is exhausted.
- */
-export function pinProgress(section: HTMLElement): number {
-  const travel = section.offsetHeight - window.innerHeight;
-  if (travel <= 0) return 0;
-  return clamp(-section.getBoundingClientRect().top / travel);
-}
 
 /* Intro coordination ------------------------------------------------------ */
 
@@ -187,7 +162,7 @@ export function drawSvg(
   });
 }
 
-/** Total path length of every stroked node, for scrub-driven drawing. */
+/** Total path length of every stroked node, for progressive drawing. */
 export function measureStrokes(root: Element): Array<{
   node: Geometry;
   length: number;

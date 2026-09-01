@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { HeroBlueprint, SectorIcon } from "@/components/graphics";
-import { LifecycleScrub } from "@/components/lifecycle-scrub";
+import { Lifecycle } from "@/components/lifecycle";
 import { SchematicLoop } from "@/components/schematic-loop";
 import {
   CountUp,
@@ -169,8 +169,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Lifecycle — pinned and scrubbed ---------------------------------- */}
-      <LifecycleScrub />
+      {/* Lifecycle — plays once on entry ---------------------------------- */}
+      <Lifecycle />
 
       {/* Directors -------------------------------------------------------- */}
       <section className="section-y border-t border-rule">

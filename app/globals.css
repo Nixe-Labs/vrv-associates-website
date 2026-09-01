@@ -669,43 +669,17 @@ html.intro-active .brand-mark {
   transform: translateX(10px);
 }
 
-/* --- Pinned lifecycle ----------------------------------------------------- */
+/* --- Lifecycle ------------------------------------------------------------ */
 
-.scrub-section {
-  position: relative;
-  padding-block: clamp(56px, 8vw, 110px);
+/* Captions dim until the draw front reaches them. Gated on `.js` so a reader
+   without JavaScript gets all four at full strength. */
+.js [data-stage-card] {
+  opacity: 0.28;
+  transition: opacity 0.8s var(--ease-out-quart);
 }
 
-.scrub-inner {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-[data-stage-card] {
-  transition: opacity 0.7s var(--ease-out-quart);
-}
-
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .scrub-section {
-    /* Travel for the scrub. Pinning is `sticky`, so scrolling stays native. */
-    height: 300vh;
-    padding-block: 0;
-  }
-
-  .scrub-inner {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-  }
-
-  [data-stage-card] {
-    opacity: 0.28;
-  }
-
-  [data-stage-card][data-active] {
-    opacity: 1;
-  }
+.js [data-stage-card][data-active] {
+  opacity: 1;
 }
 
 /* --- Page transitions ----------------------------------------------------- */
@@ -752,6 +726,10 @@ html.intro-active .brand-mark {
   }
 
   .js [data-curtain]:not([data-open]) {
+    opacity: 1;
+  }
+
+  .js [data-stage-card] {
     opacity: 1;
   }
 
